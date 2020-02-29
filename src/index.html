@@ -5,16 +5,29 @@
   <title>Gamedev Canvas Workshop</title>
   <style>
     * { padding: 0; margin: 0; }
-    canvas { background: #eee; display: block; margin: 0 auto;}
+    canvas { background: #eee; display: block; position: absolute; margin: 0 auto; left: calc( 50% - 240px); }
   </style>
 </head>
 <body>
 
+<canvas id="initCanvas" width="480" height="320"></canvas>
+
 <canvas id="myCanvas" width="480" height="320"></canvas>
 
 <script>
+
+  var initCanvas = document.getElementById("initCanvas");
+  var initCtx = initCanvas.getContext("2d");
+
   var canvas = document.getElementById("myCanvas");
   var ctx = canvas.getContext("2d");
+
+
+  var startBtnWidth = 150;
+  var startBtnHeight = 30;
+  var startBtnX = initCanvas.width/2 - startBtnWidth/2;
+  var startBtnY = initCanvas.height/2 - startBtnHeight/2;
+  var start = 0;
 
   var x = canvas.width/2;
   var y = canvas.height-30;
@@ -41,6 +54,7 @@
 
   var score = 0;
   var lives = 3;
+  var interval;
 
   var bricks = [];
   for(var c=0; c<brickColumnCount; c++) {
@@ -48,6 +62,34 @@
     for(var r=0; r<brickRowCount; r++) {
       bricks[c][r] = { x: 0, y: 0, status: 1 };
     }
+  }
+
+  function drawStartButton(){
+    initCtx.beginPath();
+    initCtx.rect(startBtnX, startBtnY, startBtnWidth, startBtnHeight);
+    initCtx.fillStyle = "#0095DD";
+    initCtx.fill();
+    initCtx.closePath();
+
+    initCtx.font = "30px Arial";
+    initCtx.fillStyle = "white";
+    initCtx.fillText("S T A R T", startBtnX + 9, startBtnY + 25);
+
+  }
+
+  function init(){
+    canvas.style.display = "none";
+    drawStartButton();
+
+  }
+
+  function startGame(){
+    console.log("start");
+    start = 1;
+    initCanvas.style.display = "none";
+    canvas.style.display = "inline-block";
+
+    interval = setInterval(draw, 3);
   }
 
   function drawScore() {
@@ -96,10 +138,20 @@
     }
   }
 
-  function mouseMoveHandler(e){
+  function mouseMoveHandler(e) {
     var relativeX = e.clientX - canvas.offsetLeft;
     if(relativeX - paddleWidth/2 > 0 && relativeX + paddleWidth/2 < canvas.width) {
       paddleX = relativeX - paddleWidth/2;
+    }
+  }
+
+  function mouseClickHandler(e) {
+    var relativeX = e.clientX - initCanvas.offsetLeft;
+    var relativeY = e.clientY - initCanvas.offsetTop;
+
+    if( relativeX > startBtnX && relativeX < startBtnX + startBtnWidth &&
+        relativeY > startBtnY && relativeY < startBtnY + startBtnHeight){
+      startGame();
     }
   }
 
@@ -199,8 +251,9 @@
   document.addEventListener("keydown", keyDownHandler, false);
   document.addEventListener("keyup", keyUpHandler, false);
   document.addEventListener("mousemove", mouseMoveHandler, false);
+  document.addEventListener("mousedown", mouseClickHandler, false);
 
-  var interval = setInterval(draw, 3);
+  init();
 
 </script>
 
