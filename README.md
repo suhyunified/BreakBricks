@@ -8,7 +8,13 @@
 
 
 ## 추가 기능
-1.
-2.
+1. 초기 화면 추가
+![image](https://user-images.githubusercontent.com/40929457/75610721-0d33c380-5b57-11ea-87a7-78d51265e718.png)
+
+start 버튼을 누르면 게임 시작
+
+2. 2번 충돌 후 벽돌 제거
+![image](https://user-images.githubusercontent.com/40929457/75610830-3bfe6980-5b58-11ea-8a16-9970995128ec.png)
+
 3.
 
