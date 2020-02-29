@@ -1,5 +1,5 @@
 ## 벽돌깨기게임
-참고사이트 : https://developer.mozilla.org/en-US/docs/Games/Tutorials/2D_Breakout_game_pure_JavaScript
+참고사이트 : https://developer.mozilla.org/en-US/docs/Games/Tutorials/2D_Breakout_game_pure_JavaScript  
 사용언어 : VanillaJS
 
 ## 게임화면
